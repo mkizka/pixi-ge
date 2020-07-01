@@ -6,16 +6,16 @@ module.exports = (env, argv) => {
     mode: 'production',
     devtool: argv.mode !== 'production' ? 'source-map' : false,
     entry: {
-      game: path.join(__dirname, 'src', 'game.ts'),
-      'pixi-ge': path.join(__dirname, 'src', 'engine', 'index.ts')
+      'game/index': path.resolve('src', 'game', 'index.ts'),
+      'engine/index': path.resolve('src', 'engine', 'index.ts')
     },
     output: {
-      path: path.join(__dirname, 'www'),
+      path: path.resolve('dist'),
       filename: '[name].js'
     },
     resolve: {
-      extensions: ['.ts', 'js'],
-      modules: [path.resolve(__dirname, 'src'), 'node_modules']
+      extensions: ['.ts', '.js'],
+      modules: [path.resolve('src'), 'node_modules']
     },
     module: {
       rules: [
@@ -26,6 +26,17 @@ module.exports = (env, argv) => {
         }
       ]
     },
-    plugins: [new HtmlWebpackPlugin()]
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'game/index.html',
+        template: './src/game/index.html'
+      })
+    ],
+    devServer: {
+      open: true,
+      openPage: 'game',
+      contentBase: path.resolve('dist'),
+      port: 8080
+    }
   }
 }
