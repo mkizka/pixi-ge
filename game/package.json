@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "parcel serve ./src/index.html"
+    "game": "parcel serve ./src/index.html"
   },
   "devDependencies": {
     "parcel": "^1.12.4",
