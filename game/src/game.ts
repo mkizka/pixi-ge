@@ -1,5 +1,5 @@
 import { Application } from 'pixi.js'
-import { GameManager, Scene } from '../engine'
+import { GameManager, Scene } from 'pixi-ge'
 
 GameManager.startApp(
   new Application({
