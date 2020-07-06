@@ -5,9 +5,7 @@
     "lib": ["dom", "esnext"],
     "strict": true,
     "moduleResolution": "node",
-    "declaration": true,
-    "newLine": "lf",
-    "outDir": "dist"
+    "newLine": "lf"
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts"]
