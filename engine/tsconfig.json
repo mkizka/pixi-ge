@@ -6,7 +6,5 @@
     "strict": true,
     "moduleResolution": "node",
     "newLine": "lf"
-  },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts"]
+  }
 }

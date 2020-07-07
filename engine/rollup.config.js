@@ -13,6 +13,7 @@ export default {
   external: [...Object.keys(pkg.devDependencies || {})],
   plugins: [
     babel({
+      babelHelpers: 'bundled',
       extensions: ['.js', '.ts']
     }),
     typescript({
