@@ -4,13 +4,7 @@ import Transition from './base/Transition'
 /**
  * 即座にシーン遷移させるトランジション
  */
-export default class Immediate implements Transition {
-  private onTransitionFinished: () => void = () => {
-    console.log('Immediate Transition Finished')
-  }
-
-  private finished: boolean = false
-
+export default class Immediate extends Transition {
   /**
    * トランジション描画物を含む PIXI.Container インスタンスを返す
    */
@@ -19,47 +13,15 @@ export default class Immediate implements Transition {
   }
 
   /**
-   * トランジション開始処理
-   * このトランジションは即時終了させる
+   * 即終了させるトランジション
    */
-  public begin(): void {
+  start() {
+    super.start()
     this.finished = true
-    this.onTransitionFinished()
   }
 
   /**
-   * トランジションが開始しているかどうかを返す
-   * このトランジションは即時終了するため true になることなはない
-   */
-  public isBegan(): boolean {
-    return false
-  }
-
-  /**
-   * トランジションが終了しているかどうかを返す
-   */
-  public isFinished(): boolean {
-    return this.finished
-  }
-
-  /**
-   * トランジションが実行中かどうかを返す
-   * このトランジションは即時終了するため true になることなはない
-   */
-  public isActive(): boolean {
-    return false
-  }
-
-  /**
-   * トランジションを更新する
    * このトランジションは即時終了するため何も行わない
    */
-  public update(): void {}
-
-  /**
-   * トランジション終了時のコールバックを登録する
-   */
-  public setCallback(callback: () => void): void {
-    this.onTransitionFinished = callback
-  }
+  public update() {}
 }

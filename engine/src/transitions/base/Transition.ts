@@ -1,14 +1,41 @@
 import * as PIXI from 'pixi.js'
+import { Container } from 'pixi.js'
 
 /**
- * シーントランジションのインターフェース
+ * 即座にシーン遷移させるトランジション
  */
-export default interface Transition {
-  getContainer(): PIXI.Container | null
-  begin(): void
-  isBegan(): boolean
-  isFinished(): boolean
-  isActive(): boolean
-  update(): void
-  setCallback(callback: () => void): void
+abstract class Transition {
+  protected started: boolean = false
+  protected finished: boolean = false
+  protected container = new Container()
+
+  /**
+   * トランジション描画物を含む PIXI.Container インスタンスを返す
+   * 不要な場合はnullを返すようにオーバーライドする
+   */
+  public getContainer(): PIXI.Container | null {
+    return this.container
+  }
+
+  public get isStarted(): boolean {
+    return this.started
+  }
+
+  public get isFinished(): boolean {
+    return this.finished
+  }
+
+  /**
+   * トランジション開始処理
+   */
+  public start(): void {
+    this.started = true
+  }
+
+  /**
+   * Sceneによって毎フレーム呼び出される
+   */
+  public update(): void {}
 }
+
+export default Transition

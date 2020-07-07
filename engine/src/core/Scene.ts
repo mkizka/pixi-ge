@@ -54,10 +54,10 @@ export default abstract class Scene extends PIXI.Container {
   public update(): void {
     this.updateRegisteredObjects()
 
-    if (this.transitionIn.isActive()) {
+    if (this.transitionIn.isStarted) {
       this.transitionIn.update()
     }
-    if (this.transitionOut.isActive()) {
+    if (this.transitionOut.isStarted) {
       this.transitionOut.update()
     }
   }
@@ -84,37 +84,5 @@ export default abstract class Scene extends PIXI.Container {
     }
 
     this.objectsToUpdate = nextObjectsToUpdate
-  }
-
-  /**
-   * シーン追加トランジション開始
-   * 引数でトランジション終了時のコールバックを指定できる
-   */
-  public beginTransitionIn(onTransitionFinished: (scene: Scene) => void): void {
-    this.transitionIn.setCallback(() => onTransitionFinished(this))
-
-    const container = this.transitionIn.getContainer()
-    if (container) {
-      this.addChild(container)
-    }
-
-    this.transitionIn.begin()
-  }
-
-  /**
-   * シーン削除トランジション開始
-   * 引数でトランジション終了時のコールバックを指定できる
-   */
-  public beginTransitionOut(
-    onTransitionFinished: (scene: Scene) => void
-  ): void {
-    this.transitionOut.setCallback(() => onTransitionFinished(this))
-
-    const container = this.transitionOut.getContainer()
-    if (container) {
-      this.addChild(container)
-    }
-
-    this.transitionOut.begin()
   }
 }
