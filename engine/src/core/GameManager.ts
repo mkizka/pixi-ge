@@ -61,9 +61,9 @@ export default class GameManager {
     document.body.appendChild(app.view)
 
     // メインループ
-    app.ticker.add((delta: number) => {
+    app.ticker.add(() => {
       if (instance.currentScene) {
-        instance.currentScene.update(delta)
+        instance.currentScene.update()
       }
     })
   }

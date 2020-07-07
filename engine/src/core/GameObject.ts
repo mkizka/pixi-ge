@@ -5,7 +5,7 @@ abstract class GameObject {
   }
 
   start(): void {}
-  update(delta: number): void {}
+  update(): void {}
 }
 
 export default GameObject

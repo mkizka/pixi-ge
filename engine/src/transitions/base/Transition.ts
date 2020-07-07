@@ -9,6 +9,6 @@ export default interface Transition {
   isBegan(): boolean
   isFinished(): boolean
   isActive(): boolean
-  update(dt: number): void
+  update(): void
   setCallback(callback: () => void): void
 }

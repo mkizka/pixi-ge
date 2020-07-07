@@ -116,15 +116,15 @@ export default abstract class Scene extends PIXI.Container {
   /**
    * GameManager によって requestAnimationFrame 毎に呼び出されるメソッド
    */
-  public update(delta: number): void {
+  public update(): void {
     this.elapsedFrameCount++
 
-    this.updateRegisteredObjects(delta)
+    this.updateRegisteredObjects()
 
     if (this.transitionIn.isActive()) {
-      this.transitionIn.update(delta)
+      this.transitionIn.update()
     } else if (this.transitionOut.isActive()) {
-      this.transitionOut.update(delta)
+      this.transitionOut.update()
     }
   }
 
@@ -138,14 +138,14 @@ export default abstract class Scene extends PIXI.Container {
   /**
    * 更新処理を行うべきオブジェクトを更新する
    */
-  protected updateRegisteredObjects(delta: number): void {
+  protected updateRegisteredObjects(): void {
     const nextObjectsToUpdate = []
 
     for (const obj of this.objectsToUpdate) {
       if (!obj || obj.isDestroyed) {
         continue
       }
-      obj.update(delta)
+      obj.update()
       nextObjectsToUpdate.push(obj)
     }
 

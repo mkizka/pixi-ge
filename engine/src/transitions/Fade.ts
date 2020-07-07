@@ -103,7 +103,7 @@ export default class Fade implements Transition {
   /**
    * トランジションを更新する
    */
-  public update(dt: number): void {
+  public update(): void {
     if (!this.isBegan()) {
       return
     }

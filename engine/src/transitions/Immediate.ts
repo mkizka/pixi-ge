@@ -54,7 +54,7 @@ export default class Immediate implements Transition {
    * トランジションを更新する
    * このトランジションは即時終了するため何も行わない
    */
-  public update(dt: number): void {}
+  public update(): void {}
 
   /**
    * トランジション終了時のコールバックを登録する
