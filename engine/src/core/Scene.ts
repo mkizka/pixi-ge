@@ -30,100 +30,34 @@ export default abstract class Scene extends PIXI.Container {
   protected objectsToUpdate: GameObject[] = []
 
   /**
-   * 経過フレーム数
-   */
-  protected elapsedFrameCount: number = 0
-
-  /**
    * シーン開始用のトランジションオブジェクト
    */
   protected transitionIn: Transition = new Immediate()
+
   /**
    * シーン終了用のトランジションオブジェクト
    */
   protected transitionOut: Transition = new Immediate()
 
   /**
-   * loadInitialResource に用いるリソースリストを作成するメソッド
+   * リソースロードを読み込む
    */
-  protected getInitialResources(): string[] {
-    return []
-  }
-
-  /**
-   * リソースダウンロードのフローを実行する
-   */
-  public beginLoadResource(onLoaded: () => void): Promise<void> {
-    return new Promise(resolve => {
-      this.loadInitialResource(() => resolve())
-    })
-      .then(() => {
-        return new Promise(resolve => {
-          const additionalAssets = this.onInitialResourceLoaded()
-          this.loadAdditionalResource(additionalAssets, () => resolve())
-        })
-      })
-      .then(() => {
-        this.onAdditionalResourceLoaded()
-        onLoaded()
-        this.onResourceLoaded()
-      })
-  }
-
-  /**
-   * 初回リソースのロードを行う
-   */
-  protected loadInitialResource(onLoaded: () => void): void {
-    const assets = this.getInitialResources()
+  protected loadResource(assets: string[], onLoaded: () => void): void {
     const filteredAssets = filterLoadedAssets(assets)
     const app = GameManager.getApp()
-
-    if (filteredAssets.length > 0) {
-      app.loader.add(filteredAssets).load(() => onLoaded())
-    } else {
-      onLoaded()
-    }
+    app.loader.add(filteredAssets).load(() => onLoaded())
   }
-
-  /**
-   * loadInitialResource 完了時のコールバックメソッド
-   * 追加でロードしなければならないテクスチャなどの情報を返す
-   */
-  protected onInitialResourceLoaded(): string[] {
-    return []
-  }
-
-  /**
-   * onInitialResourceLoaded で発生した追加のリソースをロードする
-   */
-  protected loadAdditionalResource(assets: string[], onLoaded: () => void) {
-    const app = GameManager.getApp()
-    app.loader.add(filterLoadedAssets(assets)).load(() => onLoaded())
-  }
-
-  /**
-   * 追加のリソースロード完了時のコールバック
-   */
-  protected onAdditionalResourceLoaded(): void {
-    // 抽象クラスでは何もしない
-  }
-
-  /**
-   * beginLoadResource 完了時のコールバックメソッド
-   */
-  protected onResourceLoaded(): void {}
 
   /**
    * GameManager によって requestAnimationFrame 毎に呼び出されるメソッド
    */
   public update(): void {
-    this.elapsedFrameCount++
-
     this.updateRegisteredObjects()
 
     if (this.transitionIn.isActive()) {
       this.transitionIn.update()
-    } else if (this.transitionOut.isActive()) {
+    }
+    if (this.transitionOut.isActive()) {
       this.transitionOut.update()
     }
   }
@@ -131,7 +65,7 @@ export default abstract class Scene extends PIXI.Container {
   /**
    * 更新処理を行うべきオブジェクトとして渡されたオブジェクトを登録する
    */
-  protected pushObjectsToUpdate(object: GameObject): void {
+  protected addObject(object: GameObject): void {
     this.objectsToUpdate.push(object)
   }
 
