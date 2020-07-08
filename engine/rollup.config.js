@@ -1,4 +1,3 @@
-import babel from '@rollup/plugin-babel'
 import typescript from '@rollup/plugin-typescript'
 
 import pkg from './package.json'
@@ -12,10 +11,6 @@ export default {
   },
   external: [...Object.keys(pkg.dependencies || {})],
   plugins: [
-    babel({
-      babelHelpers: 'bundled',
-      extensions: ['.js', '.ts']
-    }),
     typescript({
       declaration: true,
       rootDir: 'src',
