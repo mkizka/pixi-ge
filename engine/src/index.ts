@@ -1,5 +1,5 @@
 import Game from './core/Game'
-import GameObject from './core/GameObject'
+import GameObject from './core/base/GameObject'
 import Fade from './transitions/Fade'
 import Immediate from './transitions/Immediate'
 import Scene from './core/Scene'

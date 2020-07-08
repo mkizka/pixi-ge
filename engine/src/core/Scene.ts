@@ -1,20 +1,16 @@
 import * as PIXI from 'pixi.js'
 import Transition from '../transitions/base/Transition'
 import Immediate from '../transitions/Immediate'
-import GameObject from './GameObject'
+import GameObject from './base/GameObject'
 
 /**
  * ゲームシーンの抽象クラス
  */
-export default abstract class Scene extends PIXI.Container {
+export default abstract class Scene extends GameObject {
   /**
    * PIXI.Applicationインスタンス
    */
   public readonly app: PIXI.Application
-  /**
-   * 更新すべきオブジェクトを保持する
-   */
-  protected objectsToUpdate: GameObject[] = []
 
   /**
    * シーン開始時に読み込まれるリソースのリスト
@@ -43,7 +39,7 @@ export default abstract class Scene extends PIXI.Container {
    */
   public loadResource(): Promise<void> {
     const filteredAssets = this.filterLoadedAssets(this.assets)
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>(resolve => {
       this.app.loader.add(filteredAssets).load(() => resolve())
     })
   }
@@ -67,41 +63,38 @@ export default abstract class Scene extends PIXI.Container {
   }
 
   /**
-   * GameManagerによってシーン開始時に1度だけ呼び出されるメソッド
+   * シーン開始時に1度だけ呼び出されるメソッド
    */
-  public startIn(onTransitionFinished?: () => void): void {
+  public startIn(): void {
     const container = this.transitionIn.getContainer()
     if (container) {
       this.addChild(container)
     }
     this.transitionIn.start()
-    if (onTransitionFinished) {
-      this.transitionIn.onFinished = onTransitionFinished
-    }
   }
 
   /**
-   * Gameによってシーン終了時に1度だけ呼び出されるメソッド
+   * シーン終了時に1度だけ呼び出されるメソッド
    */
   public startOut(onTransitionFinished?: () => void): void {
     const container = this.transitionOut.getContainer()
     if (container) {
       this.addChild(container)
     }
-    console.log('startOut')
     this.transitionOut.start()
     if (onTransitionFinished) {
       this.transitionOut.onFinished = onTransitionFinished
     }
   }
 
+  public start() {
+    this.startIn()
+  }
+
   /**
    * GameによってrequestAnimationFrame毎に呼び出されるメソッド
    */
   public update(): void {
-    console.log('Scene.update')
-    this.updateRegisteredObjects()
-
     if (this.transitionIn.isStarted) {
       this.transitionIn.update()
     }
@@ -112,29 +105,5 @@ export default abstract class Scene extends PIXI.Container {
         this.destroy()
       }
     }
-  }
-
-  /**
-   * 更新処理を行うべきオブジェクトとして渡されたオブジェクトを登録する
-   */
-  protected addObject(object: GameObject): void {
-    this.objectsToUpdate.push(object)
-  }
-
-  /**
-   * 更新処理を行うべきオブジェクトを更新する
-   */
-  protected updateRegisteredObjects(): void {
-    const nextObjectsToUpdate = []
-
-    for (const obj of this.objectsToUpdate) {
-      if (!obj || obj.isDestroyed) {
-        continue
-      }
-      obj.update()
-      nextObjectsToUpdate.push(obj)
-    }
-
-    this.objectsToUpdate = nextObjectsToUpdate
   }
 }
