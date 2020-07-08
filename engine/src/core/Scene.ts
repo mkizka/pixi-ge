@@ -13,6 +13,11 @@ export default abstract class Scene extends GameObject {
   public readonly app: PIXI.Application
 
   /**
+   * PIXI.Containerインスタンス
+   */
+  public readonly container: PIXI.Container = new PIXI.Container()
+
+  /**
    * シーン開始時に読み込まれるリソースのリスト
    */
   protected assets: string[] = []
@@ -66,10 +71,6 @@ export default abstract class Scene extends GameObject {
    * シーン開始時に1度だけ呼び出されるメソッド
    */
   public startIn(): void {
-    const container = this.transitionIn.getContainer()
-    if (container) {
-      this.addChild(container)
-    }
     this.transitionIn.start()
   }
 
@@ -77,10 +78,6 @@ export default abstract class Scene extends GameObject {
    * シーン終了時に1度だけ呼び出されるメソッド
    */
   public startOut(onTransitionFinished?: () => void): void {
-    const container = this.transitionOut.getContainer()
-    if (container) {
-      this.addChild(container)
-    }
     this.transitionOut.start()
     if (onTransitionFinished) {
       this.transitionOut.onFinished = onTransitionFinished
@@ -89,21 +86,5 @@ export default abstract class Scene extends GameObject {
 
   public start() {
     this.startIn()
-  }
-
-  /**
-   * GameによってrequestAnimationFrame毎に呼び出されるメソッド
-   */
-  public update(): void {
-    if (this.transitionIn.isStarted) {
-      this.transitionIn.update()
-    }
-
-    if (this.transitionOut.isStarted) {
-      this.transitionOut.update()
-      if (this.transitionOut.isFinished) {
-        this.destroy()
-      }
-    }
   }
 }

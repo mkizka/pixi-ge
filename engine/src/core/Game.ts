@@ -24,7 +24,7 @@ export default class Game {
     app.loader.baseUrl = 'assets/'
     app.ticker.add(_ => {
       if (this.currentScene) {
-        this.currentScene.update()
+        this.currentScene.behave()
       }
     })
     this.app = app
@@ -49,7 +49,7 @@ export default class Game {
     const startNewScene = () => {
       this.currentScene = newScene
       this.currentScene.startIn()
-      this.app.stage.addChild(newScene)
+      this.app.stage.addChild(newScene.container)
     }
     if (this.currentScene) {
       this.currentScene.startOut(() => startNewScene())

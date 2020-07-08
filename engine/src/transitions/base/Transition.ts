@@ -1,51 +1,25 @@
-import * as PIXI from 'pixi.js'
-import { Container } from 'pixi.js'
+import GameObject from '../../core/base/GameObject'
 import Scene from '../../core/Scene'
 
 /**
  * 即座にシーン遷移させるトランジション
  */
-abstract class Transition {
-  protected started: boolean = false
-  protected finished: boolean = false
-  protected container = new Container()
+abstract class Transition extends GameObject {
   protected scene: Scene
+  protected finished: boolean = false
   public onFinished: () => void = () => {}
 
   constructor(scene: Scene) {
+    super()
     this.scene = scene
+    this.scene.addObject(this)
   }
 
-  /**
-   * トランジション描画物を含む PIXI.Container インスタンスを返す
-   * 不要な場合はnullを返すようにオーバーライドする
-   */
-  public getContainer(): PIXI.Container | null {
-    return this.container
-  }
-
-  public get isStarted(): boolean {
-    return this.started
-  }
-
-  public get isFinished(): boolean {
-    return this.finished
-  }
-
-  /**
-   * トランジション開始処理
-   */
-  public start(): void {
-    this.started = true
-  }
-
-  /**
-   * Sceneによって毎フレーム呼び出される
-   */
-  public update(): void {
+  public behave(): void {
+    super.behave()
     if (this.finished) {
       this.onFinished()
-      this.container.destroy()
+      this.destroy()
     }
   }
 }

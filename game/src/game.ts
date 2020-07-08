@@ -14,8 +14,8 @@ class FirstScene extends Scene {
 
   constructor() {
     super(app)
-    this.transitionIn = new Fade(this, 1.0, 0.0, -0.01)
-    this.transitionOut = new Fade(this, 0.0, 1.0, 0.01)
+    this.transitionIn = new Fade(this, {from: 1.0, to:0.0, progress:-0.01})
+    this.transitionOut = new Fade(this, {from:0.0, to:1.0, progress:0.01})
 
     const textStyle = new PIXI.TextStyle({
       fontSize: 64,
@@ -27,13 +27,12 @@ class FirstScene extends Scene {
     this.text.interactive = true
     this.text.anchor.set(0.5, 0.5)
     this.text.position.set(renderer.width * 0.5, renderer.height * 0.5)
-    this.addChild(this.text)
+    this.container.addChild(this.text)
 
     this.text.on('pointerdown', () => game.loadScene(new SecondScene()))
   }
 
   public update(): void {
-    super.update()
     this.text.text = `first scene\n${this.count++}`
   }
 }
@@ -54,13 +53,12 @@ class SecondScene extends Scene {
     this.text.interactive = true
     this.text.anchor.set(0.5, 0.5)
     this.text.position.set(renderer.width * 0.5, renderer.height * 0.5)
-    this.addChild(this.text)
+    this.container.addChild(this.text)
 
     this.text.on('pointerdown', () => game.loadScene(new FirstScene()))
   }
 
   public update(): void {
-    super.update()
     this.text.text = `second scene\n${this.count++}`
   }
 }

@@ -2,6 +2,12 @@ import * as PIXI from 'pixi.js'
 import Transition from './base/Transition'
 import Scene from '../core/Scene'
 
+type Alpha = {
+  from: number
+  to: number
+  progress: number
+}
+
 /**
  * トランジションのフェード表現
  */
@@ -9,15 +15,7 @@ export default class Fade extends Transition {
   /**
    * フェード開始時の黒画面アルファ
    */
-  private readonly alphaFrom: number
-  /**
-   * フェード終了時の黒画面アルファ
-   */
-  private readonly alphaTo: number
-  /**
-   * 1フレーム毎の黒画面アルファ加算値
-   */
-  private readonly alphaProgress: number
+  private readonly alpha: Alpha
   /**
    * 黒画面の描画
    */
@@ -26,43 +24,34 @@ export default class Fade extends Transition {
   /**
    * コンストラクタ
    */
-  constructor(
-    scene: Scene,
-    alphaFrom: number,
-    alphaTo: number,
-    alphaProgress: number
-  ) {
+  constructor(scene: Scene, alpha: Alpha) {
     super(scene)
-    this.alphaFrom = alphaFrom
-    this.alphaTo = alphaTo
-    this.alphaProgress = alphaProgress
+    this.alpha = alpha
+    this.scene = scene
 
-    const { width, height } = this.scene.app.view
-
-    // フェード用の黒い画面
+    const { width, height } = scene.app.view
     this.overlay.beginFill(0x000000)
     this.overlay.moveTo(0, 0)
     this.overlay.lineTo(width, 0)
     this.overlay.lineTo(width, height)
     this.overlay.lineTo(0, height)
     this.overlay.endFill()
-    this.overlay.alpha = this.alphaFrom
-
-    this.container.addChild(this.overlay)
+    this.overlay.alpha = this.alpha.from
   }
 
-  /**
-   * トランジションを更新する
-   */
+  public start() {
+    this.scene.container.addChild(this.overlay)
+  }
+
   public update(): void {
-    super.update()
+    console.log(1)
     if (
-      (this.alphaTo <= this.alphaFrom && this.overlay.alpha <= this.alphaTo) ||
-      (this.alphaTo >= this.alphaFrom && this.overlay.alpha >= this.alphaTo)
+      this.alpha.from <= this.overlay.alpha &&
+      this.overlay.alpha <= this.alpha.to
     ) {
-      this.finished = true
+      this.overlay.alpha += this.alpha.progress
     } else {
-      this.overlay.alpha += this.alphaProgress
+      this.finished = true
     }
   }
 }

@@ -1,19 +1,30 @@
-import * as PIXI from 'pixi.js'
-
-abstract class GameObject extends PIXI.Container {
+abstract class GameObject {
   private objectsToUpdate: GameObject[] = []
-  private isActive = false
+  private started = false
+  private destroyed = false
 
-  behave() {
-    if (!this.isActive) {
+  public get isActive(): boolean {
+    return this.started && !this.isDestroyed
+  }
+
+  public get isDestroyed(): boolean {
+    return this.destroyed
+  }
+
+  public destroy(): void {
+    this.destroyed = true
+  }
+
+  public behave() {
+    if (!this.started) {
       this.start()
-      this.isActive = true
+      this.started = true
     }
     this.update()
 
     const next = []
     for (const gameObject of this.objectsToUpdate) {
-      if (gameObject._destroyed) {
+      if (gameObject.destroyed) {
         continue
       }
       gameObject.behave()
@@ -26,14 +37,8 @@ abstract class GameObject extends PIXI.Container {
 
   update(): void {}
 
-  addChild(
-    gameObject: GameObject | PIXI.DisplayObject
-  ): GameObject | PIXI.DisplayObject {
-    super.addChild(gameObject)
-    if (gameObject instanceof GameObject) {
-      this.objectsToUpdate.push(gameObject)
-    }
-    return gameObject
+  addObject(gameObject: GameObject): void {
+    this.objectsToUpdate.push(gameObject)
   }
 }
 
