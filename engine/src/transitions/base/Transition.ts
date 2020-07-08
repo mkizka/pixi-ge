@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { Container } from 'pixi.js'
+import Scene from '../../core/Scene'
 
 /**
  * 即座にシーン遷移させるトランジション
@@ -8,6 +9,12 @@ abstract class Transition {
   protected started: boolean = false
   protected finished: boolean = false
   protected container = new Container()
+  protected scene: Scene
+  public onFinished: () => void = () => {}
+
+  constructor(scene: Scene) {
+    this.scene = scene
+  }
 
   /**
    * トランジション描画物を含む PIXI.Container インスタンスを返す
@@ -35,7 +42,12 @@ abstract class Transition {
   /**
    * Sceneによって毎フレーム呼び出される
    */
-  public update(): void {}
+  public update(): void {
+    if (this.finished) {
+      this.onFinished()
+      this.container.destroy()
+    }
+  }
 }
 
 export default Transition

@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import Transition from './base/Transition'
-import GameManager from '../core/GameManager'
+import Scene from '../core/Scene'
 
 /**
  * トランジションのフェード表現
@@ -26,13 +26,18 @@ export default class Fade extends Transition {
   /**
    * コンストラクタ
    */
-  constructor(alphaFrom: number, alphaTo: number, alphaProgress: number) {
-    super()
+  constructor(
+    scene: Scene,
+    alphaFrom: number,
+    alphaTo: number,
+    alphaProgress: number
+  ) {
+    super(scene)
     this.alphaFrom = alphaFrom
     this.alphaTo = alphaTo
     this.alphaProgress = alphaProgress
 
-    const { width, height } = GameManager.getApp().view
+    const { width, height } = this.scene.app.view
 
     // フェード用の黒い画面
     this.overlay.beginFill(0x000000)
@@ -50,6 +55,7 @@ export default class Fade extends Transition {
    * トランジションを更新する
    */
   public update(): void {
+    super.update()
     if (
       (this.alphaTo <= this.alphaFrom && this.overlay.alpha <= this.alphaTo) ||
       (this.alphaTo >= this.alphaFrom && this.overlay.alpha >= this.alphaTo)

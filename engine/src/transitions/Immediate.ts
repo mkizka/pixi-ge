@@ -13,15 +13,10 @@ export default class Immediate extends Transition {
   }
 
   /**
-   * 即終了させるトランジション
+   * 即時終了させる
    */
-  start() {
-    super.start()
-    this.finished = true
+  public update() {
+    super.update()
+    super.finished = true
   }
-
-  /**
-   * このトランジションは即時終了するため何も行わない
-   */
-  public update() {}
 }
