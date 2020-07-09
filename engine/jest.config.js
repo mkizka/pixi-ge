@@ -1,6 +1,7 @@
 module.exports = {
-  setupFiles: ['jest-webgl-canvas-mock'],
   transform: {
     '^.+\\.ts$': 'ts-jest'
-  }
+  },
+  runner: '@jest-runner/electron',
+  testEnvironment: '@jest-runner/electron/environment'
 }
