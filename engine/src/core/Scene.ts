@@ -32,7 +32,7 @@ export default abstract class Scene extends GameObject {
    */
   protected transitionOut: Transition
 
-  protected constructor(app: PIXI.Application) {
+  constructor(app: PIXI.Application) {
     super()
     this.app = app
     this.transitionIn = new Immediate(this)

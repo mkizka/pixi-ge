@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es2020": true,
-        "node": true
+        "node": true,
+        "jest/globals": true
     },
     "extends": [
         "plugin:prettier/recommended",
@@ -14,7 +15,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "jest"
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": ".*" }]

@@ -14,6 +14,10 @@ abstract class Transition extends GameObject {
     this.scene = scene
   }
 
+  public get isFinished() {
+    return this.finished
+  }
+
   public behave(): void {
     super.behave()
     if (this.finished) {
