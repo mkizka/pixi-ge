@@ -71,14 +71,14 @@ export default abstract class Scene extends GameObject {
    * シーン開始時に1度だけ呼び出されるメソッド
    */
   public startIn(): void {
-    this.transitionIn.start()
+    this.addObject(this.transitionIn)
   }
 
   /**
    * シーン終了時に1度だけ呼び出されるメソッド
    */
   public startOut(onTransitionFinished?: () => void): void {
-    this.transitionOut.start()
+    this.addObject(this.transitionOut)
     if (onTransitionFinished) {
       this.transitionOut.onFinished = onTransitionFinished
     }

@@ -12,7 +12,6 @@ abstract class Transition extends GameObject {
   constructor(scene: Scene) {
     super()
     this.scene = scene
-    this.scene.addObject(this)
   }
 
   public behave(): void {

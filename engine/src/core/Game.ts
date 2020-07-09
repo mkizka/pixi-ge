@@ -48,11 +48,13 @@ export default class Game {
   public async loadScene(newScene: Scene): Promise<void> {
     const startNewScene = () => {
       this.currentScene = newScene
-      this.currentScene.startIn()
       this.app.stage.addChild(newScene.container)
     }
     if (this.currentScene) {
-      this.currentScene.startOut(() => startNewScene())
+      this.currentScene.startOut(() => {
+        this.currentScene!.container.destroy()
+        startNewScene()
+      })
       await newScene.loadResource()
     } else {
       startNewScene()

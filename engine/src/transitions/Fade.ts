@@ -44,13 +44,14 @@ export default class Fade extends Transition {
   }
 
   public update(): void {
-    console.log(1)
     if (
-      this.alpha.from <= this.overlay.alpha &&
-      this.overlay.alpha <= this.alpha.to
+      (this.alpha.from <= this.alpha.to &&
+        this.overlay.alpha <= this.alpha.to) ||
+      (this.alpha.from >= this.alpha.to && this.overlay.alpha >= this.alpha.to)
     ) {
       this.overlay.alpha += this.alpha.progress
     } else {
+      this.overlay.destroy()
       this.finished = true
     }
   }
