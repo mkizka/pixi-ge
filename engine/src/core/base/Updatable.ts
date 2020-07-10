@@ -17,8 +17,8 @@ abstract class Updatable {
 
   update(): void {}
 
-  addObject(gameObject: Updatable): void {
-    this.objects.push(gameObject)
+  addObject(updatable: Updatable): void {
+    this.objects.push(updatable)
   }
 }
 

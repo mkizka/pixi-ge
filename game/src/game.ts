@@ -28,9 +28,7 @@ class SampleScene extends Scene {
       to: 0.1,
       progress: -0.01
     })
-    const b = new Bunny()
-    this.addObject(b)
-    this.container.addChild(b.sprite)
+    this.addObject(new Bunny())
   }
 }
 

@@ -48,7 +48,6 @@ export default class Fade extends Transition {
     ) {
       this.overlay.alpha += this.alpha.progress
     } else {
-      this.container.destroy()
       this.finished = true
     }
   }

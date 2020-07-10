@@ -39,12 +39,10 @@ abstract class Transition extends Updatable {
   }
 
   public behave(): void {
-    if (!this.started && this.scene) {
-      this.scene.container.addChild(this.container)
-    }
     super.behave()
     if (this.finished) {
       this.onFinished()
+      this.container.destroy()
     }
   }
 }
