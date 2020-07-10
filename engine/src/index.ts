@@ -1,8 +1,8 @@
 import Game from './core/Game'
-import GameObject from './core/base/GameObject'
+import Actor from './core/Actor'
 import Fade from './transitions/Fade'
 import Immediate from './transitions/Immediate'
 import Scene from './core/Scene'
 import Transition from './transitions/base/Transition'
 
-export { Game, Scene, GameObject, Transition, Fade, Immediate }
+export { Game, Scene, Actor, Transition, Fade, Immediate }

@@ -55,7 +55,6 @@ export default class Game {
         this.currentScene!.container.destroy()
         startNewScene()
       })
-      await newScene.loadResource()
     } else {
       startNewScene()
     }

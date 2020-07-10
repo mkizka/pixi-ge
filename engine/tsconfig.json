@@ -7,5 +7,10 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "newLine": "lf"
-  }
+  },
+  "exclude": [
+    "test",
+    "dist",
+    "node_modules"
+  ]
 }

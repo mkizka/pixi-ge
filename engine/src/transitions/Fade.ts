@@ -24,12 +24,11 @@ export default class Fade extends Transition {
   /**
    * コンストラクタ
    */
-  constructor(scene: Scene, alpha: Alpha) {
+  constructor(scene: Scene, view: HTMLCanvasElement, alpha: Alpha) {
     super(scene)
     this.alpha = alpha
-    this.scene = scene
 
-    const { width, height } = scene.app.view
+    const { width, height } = view
     this.overlay.beginFill(0x000000)
     this.overlay.moveTo(0, 0)
     this.overlay.lineTo(width, 0)
@@ -37,21 +36,19 @@ export default class Fade extends Transition {
     this.overlay.lineTo(0, height)
     this.overlay.endFill()
     this.overlay.alpha = this.alpha.from
-  }
 
-  public start() {
-    this.scene.container.addChild(this.overlay)
+    this.container.addChild(this.overlay)
   }
 
   public update(): void {
+    const isAsc = this.alpha.from <= this.alpha.to
     if (
-      (this.alpha.from <= this.alpha.to &&
-        this.overlay.alpha <= this.alpha.to) ||
-      (this.alpha.from >= this.alpha.to && this.overlay.alpha >= this.alpha.to)
+      (isAsc && this.overlay.alpha <= this.alpha.to) ||
+      (!isAsc && this.overlay.alpha >= this.alpha.to)
     ) {
       this.overlay.alpha += this.alpha.progress
     } else {
-      this.overlay.destroy()
+      this.container.destroy()
       this.finished = true
     }
   }
