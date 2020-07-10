@@ -18,6 +18,13 @@ export default class Game {
   private currentScene: Scene | undefined
 
   /**
+   * 現在のシーンインスタンスを取得する
+   */
+  public getCurrentScene(): Scene | undefined {
+    return this.currentScene
+  }
+
+  /**
    * コンストラクタ
    */
   constructor(app: PIXI.Application) {
@@ -35,7 +42,7 @@ export default class Game {
    */
   public start(element?: Element) {
     if (element) {
-      element.append(this.app.view)
+      element.appendChild(this.app.view)
     }
     document.body.appendChild(this.app.view)
   }

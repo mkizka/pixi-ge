@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js'
 import { Scene, Immediate, Fade } from '../src'
 
+PIXI.utils.skipHello()
+
 let scene: Scene
 let app: PIXI.Application
 
@@ -18,6 +20,7 @@ describe('transitions', () => {
       expect(immediate.isFinished).toBe(true)
     })
   })
+
   describe('Fade', () => {
     it('フェードイン', () => {
       const fade = new Fade(scene, app.view, {
@@ -30,6 +33,7 @@ describe('transitions', () => {
       }
       expect(fade.isFinished).toBe(true)
     })
+
     it('フェードアウト', () => {
       const fade = new Fade(scene, app.view, {
         from: 0,

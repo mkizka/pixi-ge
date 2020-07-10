@@ -2,7 +2,11 @@ abstract class Updatable {
   protected objects: Updatable[] = []
   protected started = false
 
-  public behave() {
+  public get isStarted(): boolean {
+    return this.started
+  }
+
+  public behave(): void {
     if (!this.started) {
       this.start()
       this.started = true
