@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import Updatable from './base/Updatable'
 
-abstract class Actor extends Updatable {
+export default class Actor extends Updatable {
   /**
    * PIXI.Spriteインスタンス
    */
@@ -12,5 +12,3 @@ abstract class Actor extends Updatable {
     this.sprite.addChild(actor.sprite)
   }
 }
-
-export default Actor

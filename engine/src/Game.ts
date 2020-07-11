@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import Scene from './Scene'
+import Scene from './core/Scene'
 
 /**
  * ゲーム全体のマネージャ

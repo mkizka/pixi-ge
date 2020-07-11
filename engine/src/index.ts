@@ -1,4 +1,4 @@
-import Game from './core/Game'
+import Game from './Game'
 import Actor from './core/Actor'
 import Fade from './transitions/Fade'
 import Immediate from './transitions/Immediate'

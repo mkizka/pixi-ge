@@ -7,7 +7,7 @@ import Actor from './Actor'
 /**
  * ゲームシーンの抽象クラス
  */
-export default abstract class Scene extends Updatable {
+export default class Scene extends Updatable {
   /**
    * PIXI.Containerインスタンス
    */

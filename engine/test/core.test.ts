@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { Game, Scene } from '../src'
+import Actor from '../src/core/Actor'
 
 PIXI.utils.skipHello()
 
@@ -48,6 +49,15 @@ describe('core', () => {
       game.app.ticker.update()
       expect(game.getCurrentScene()).not.toBe(undefined)
       expect(game.getCurrentScene()!.isStarted).toBe(true)
+    })
+  })
+
+  describe('Actor', () => {
+    it('子要素のコンテナ登録', () => {
+      const parent = new Actor()
+      const child = new Actor()
+      parent.addObject(child)
+      expect(parent.sprite.children).toContain(child.sprite)
     })
   })
 })
