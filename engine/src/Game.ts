@@ -29,22 +29,24 @@ export default class Game {
    */
   constructor(app: PIXI.Application) {
     app.loader.baseUrl = 'assets/'
-    app.ticker.add(_ => {
-      if (this.currentScene) {
-        this.currentScene.behave()
-      }
-    })
     this.app = app
+  }
+
+  /**
+   * this.startで登録されるメインループ
+   */
+  protected mainLoop() {
+    if (this.currentScene) {
+      this.currentScene.behave()
+    }
   }
 
   /**
    * ゲームの描画を開始する
    */
-  public start(element?: Element) {
-    if (element) {
-      element.appendChild(this.app.view)
-    }
-    document.body.appendChild(this.app.view)
+  public start(element: Element = document.body) {
+    element.appendChild(this.app.view)
+    this.app.ticker.add(_ => this.mainLoop())
   }
 
   /**

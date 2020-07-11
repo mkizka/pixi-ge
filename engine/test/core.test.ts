@@ -25,7 +25,14 @@ describe('core', () => {
   })
 
   describe('Game', () => {
+    it('DOM要素への登録', () => {
+      const el = document.createElement('div')
+      game.start(el)
+      expect(el.children).toContain(game.app.view)
+    })
+
     it('シーン読み込み', () => {
+      game.start()
       game.loadScene(scene)
       game.app.ticker.update()
       expect(game.app.stage.children.length).toBe(1)
@@ -34,6 +41,7 @@ describe('core', () => {
     })
 
     it('シーン遷移', () => {
+      game.start()
       const scene2 = new TestScene()
       game.loadScene(scene)
       game.app.ticker.update()
@@ -45,6 +53,7 @@ describe('core', () => {
     })
 
     it('登録シーンがメインループで動作', () => {
+      game.start()
       game.loadScene(scene)
       game.app.ticker.update()
       expect(game.getCurrentScene()).not.toBe(undefined)
