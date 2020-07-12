@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { Game, Scene } from '../src'
-import Actor from '../src/core/Actor'
+import { Game, Scene, Actor } from '../src'
 
 PIXI.utils.skipHello()
 

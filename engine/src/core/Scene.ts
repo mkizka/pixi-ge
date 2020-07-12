@@ -40,17 +40,17 @@ export default class Scene extends Updatable {
     }
   }
 
-  public start(): void {
+  protected start() {
     this.startIn()
   }
 
-  addObject(updatable: Updatable | Actor | Transition): void {
+  public addObject(updatable: Updatable | Actor | Transition): void {
     super.addObject(updatable)
     if (updatable instanceof Actor) {
       this.container.addChild(updatable.sprite)
     }
     if (updatable instanceof Transition) {
-      this.container.addChild(updatable.container)
+      this.container.addChild(updatable.overlay)
     }
   }
 }

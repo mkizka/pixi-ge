@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js'
 import Transition from './base/Transition'
 import Scene from '../core/Scene'
 
@@ -16,10 +15,6 @@ export default class Fade extends Transition {
    * フェード開始時の黒画面アルファ
    */
   private readonly alpha: Alpha
-  /**
-   * 黒画面の描画
-   */
-  private overlay = new PIXI.Graphics()
 
   /**
    * コンストラクタ
@@ -36,8 +31,6 @@ export default class Fade extends Transition {
     this.overlay.lineTo(0, height)
     this.overlay.endFill()
     this.overlay.alpha = this.alpha.from
-
-    this.container.addChild(this.overlay)
   }
 
   public update(): void {
@@ -48,7 +41,7 @@ export default class Fade extends Transition {
     ) {
       this.overlay.alpha += this.alpha.progress
     } else {
-      this.finished = true
+      this.finish()
     }
   }
 }

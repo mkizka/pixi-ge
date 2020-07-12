@@ -17,11 +17,11 @@ abstract class Updatable {
     }
   }
 
-  start(): void {}
+  protected start(): void {}
 
-  update(): void {}
+  protected update(): void {}
 
-  addObject(updatable: Updatable): void {
+  public addObject(updatable: Updatable): void {
     this.objects.push(updatable)
   }
 }

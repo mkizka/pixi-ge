@@ -7,9 +7,9 @@ import Scene from '../../core/Scene'
  */
 abstract class Transition extends Updatable {
   /**
-   * PIXI.Containerインスタンス
+   * PIXI.Graphicsインスタンス
    */
-  public readonly container: PIXI.Container = new PIXI.Container()
+  public readonly overlay: PIXI.Graphics = new PIXI.Graphics()
 
   /**
    * トランジションが実行されるシーン
@@ -19,16 +19,25 @@ abstract class Transition extends Updatable {
   /**
    * トランジションが終了すると真
    */
-  protected finished: boolean = false
+  private finished: boolean = false
 
   /**
-   * this.finished==trueのときにthis.behaveに呼び出される
+   * this.finishで呼び出される交換可能な関数
    */
   public onFinished: () => void = () => {}
 
   constructor(scene?: Scene) {
     super()
     this.scene = scene
+  }
+
+  /**
+   * トランジションの終了宣言
+   */
+  protected finish(): void {
+    this.finished = true
+    this.overlay.destroy()
+    this.onFinished()
   }
 
   /**
@@ -39,11 +48,8 @@ abstract class Transition extends Updatable {
   }
 
   public behave(): void {
+    if (this.finished) return
     super.behave()
-    if (this.finished) {
-      this.onFinished()
-      this.container.destroy()
-    }
   }
 }
 
