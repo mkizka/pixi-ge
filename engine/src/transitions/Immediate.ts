@@ -7,7 +7,7 @@ export default class Immediate extends Transition {
   /**
    * 即時終了させる
    */
-  public start() {
+  public start(): void {
     this.finish()
   }
 }

@@ -7,7 +7,7 @@ export default class Actor extends Updatable {
    */
   public readonly sprite = new PIXI.Sprite()
 
-  public addObject(actor: Actor) {
+  public addObject(actor: Actor): void {
     super.addObject(actor)
     this.sprite.addChild(actor.sprite)
   }

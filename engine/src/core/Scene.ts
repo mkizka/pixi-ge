@@ -40,7 +40,7 @@ export default class Scene extends Updatable {
     }
   }
 
-  protected start() {
+  protected start(): void {
     this.startIn()
   }
 

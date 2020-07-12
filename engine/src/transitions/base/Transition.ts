@@ -43,7 +43,7 @@ abstract class Transition extends Updatable {
   /**
    * this.finishedのゲッター
    */
-  public get isFinished() {
+  public get isFinished(): boolean {
     return this.finished
   }
 

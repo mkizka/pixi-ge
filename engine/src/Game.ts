@@ -35,7 +35,7 @@ export default class Game {
   /**
    * this.startで登録されるメインループ
    */
-  protected mainLoop() {
+  protected mainLoop(): void {
     if (this.currentScene) {
       this.currentScene.behave()
     }
@@ -44,7 +44,7 @@ export default class Game {
   /**
    * ゲームの描画を開始する
    */
-  public start(element: Element = document.body) {
+  public start(element: Element = document.body): void {
     element.appendChild(this.app.view)
     this.app.ticker.add(_ => this.mainLoop())
   }
@@ -55,7 +55,7 @@ export default class Game {
    * いずれも完了したら、新しいシーンのトランジションを開始する
    */
   public async loadScene(newScene: Scene): Promise<void> {
-    const startNewScene = () => {
+    const startNewScene = (): void => {
       this.currentScene = newScene
       this.app.stage.addChild(newScene.container)
     }
