@@ -17,7 +17,8 @@ const app = new PIXI.Application({
 
 class Bunny extends Actor {
   public start() {
-    this.sprite.texture = PIXI.Sprite.from('https://pixijs.io/examples/examples/assets/bunny.png').texture
+    const url = 'https://pixijs.io/examples/examples/assets/bunny.png'
+    this.sprite.texture = PIXI.Sprite.from(url).texture
     this.sprite.x = app.screen.width / 2
     this.sprite.y = app.screen.height / 2
     this.sprite.anchor.set(0.5)
@@ -36,9 +37,7 @@ class SampleScene extends Scene {
       to: 0.1,
       progress: -0.01
     })
-    const b = new Bunny()
-    this.addObject(b)
-    this.container.addChild(b.sprite)
+    this.addObject(new Bunny())
   }
 }
 
