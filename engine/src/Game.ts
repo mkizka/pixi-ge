@@ -61,7 +61,7 @@ export default class Game {
     }
     if (this.currentScene) {
       this.currentScene.startOut(() => {
-        this.currentScene!.container.destroy()
+        this.currentScene?.container.destroy()
         startNewScene()
       })
     } else {

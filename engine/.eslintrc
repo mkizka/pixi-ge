@@ -6,8 +6,10 @@
         "jest/globals": true
     },
     "extends": [
+        "prettier-standard",
+        "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",
-        "prettier-standard"
+        "prettier/@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -19,7 +21,8 @@
         "jest"
     ],
     "rules": {
-        "@typescript-eslint/explicit-function-return-type": ["error"],
+        "no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-expressions": "warn",
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": ".*" }]
     }
 }

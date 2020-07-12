@@ -17,8 +17,10 @@ abstract class Updatable {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected start(): void {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected update(): void {}
 
   public addObject(updatable: Updatable): void {

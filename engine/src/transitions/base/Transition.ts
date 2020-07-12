@@ -19,12 +19,12 @@ abstract class Transition extends Updatable {
   /**
    * トランジションが終了すると真
    */
-  private finished: boolean = false
+  private finished = false
 
   /**
    * this.finishで呼び出される交換可能な関数
    */
-  public onFinished: () => void = () => {}
+  public onFinished: (() => void) | undefined
 
   constructor(scene?: Scene) {
     super()
@@ -37,7 +37,9 @@ abstract class Transition extends Updatable {
   protected finish(): void {
     this.finished = true
     this.overlay.destroy()
-    this.onFinished()
+    if (this.onFinished) {
+      this.onFinished()
+    }
   }
 
   /**
