@@ -1,21 +1,12 @@
 import * as PIXI from 'pixi.js'
-import { Scene, Immediate, Fade } from '../src'
+import { Immediate, Fade } from '../src'
 
 PIXI.utils.skipHello()
-
-let scene: Scene
-let app: PIXI.Application
-
-beforeEach(() => {
-  app = new PIXI.Application()
-  class TestScene extends Scene {}
-  scene = new TestScene()
-})
 
 describe('transitions', () => {
   describe('Immediate', () => {
     it('即時終了', () => {
-      const immediate = new Immediate(scene)
+      const immediate = new Immediate()
       immediate.behave()
       expect(immediate.isFinished).toBe(true)
     })
@@ -23,7 +14,7 @@ describe('transitions', () => {
 
   describe('Fade', () => {
     it('フェードイン', () => {
-      const fade = new Fade(scene, app.view, {
+      const fade = new Fade({
         from: 1,
         to: 0,
         progress: -(1 / 10)
@@ -35,7 +26,7 @@ describe('transitions', () => {
     })
 
     it('フェードアウト', () => {
-      const fade = new Fade(scene, app.view, {
+      const fade = new Fade({
         from: 0,
         to: 1,
         progress: 1 / 10

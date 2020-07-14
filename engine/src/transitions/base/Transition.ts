@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js'
 import Updatable from '../../core/base/Updatable'
-import Scene from '../../core/Scene'
 
 /**
  * 即座にシーン遷移させるトランジション
@@ -12,11 +11,6 @@ abstract class Transition extends Updatable {
   public readonly overlay: PIXI.Graphics = new PIXI.Graphics()
 
   /**
-   * トランジションが実行されるシーン
-   */
-  protected scene: Scene | undefined
-
-  /**
    * トランジションが終了すると真
    */
   private finished = false
@@ -25,11 +19,6 @@ abstract class Transition extends Updatable {
    * this.finishで呼び出される交換可能な関数
    */
   public onFinished: (() => void) | undefined
-
-  constructor(scene?: Scene) {
-    super()
-    this.scene = scene
-  }
 
   /**
    * トランジションの終了宣言

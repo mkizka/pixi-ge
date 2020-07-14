@@ -8,9 +8,15 @@ import Scene from './core/Scene'
 export default class Game {
   /**
    * PIXI.Application インスタンス
-   * 初期化時に生成される
    */
-  public readonly app: PIXI.Application
+  private static _app: PIXI.Application = new PIXI.Application()
+
+  /**
+   * this._appのgetter
+   */
+  public static get app(): PIXI.Application {
+    return this._app
+  }
 
   /**
    * 現在のシーンインスタンス
@@ -28,8 +34,7 @@ export default class Game {
    * コンストラクタ
    */
   constructor(app: PIXI.Application) {
-    app.loader.baseUrl = 'assets/'
-    this.app = app
+    Game._app = app
   }
 
   /**
@@ -45,8 +50,8 @@ export default class Game {
    * ゲームの描画を開始する
    */
   public start(element: Element = document.body): void {
-    element.appendChild(this.app.view)
-    this.app.ticker.add(_ => this.mainLoop())
+    element.appendChild(Game.app.view)
+    Game.app.ticker.add(_ => this.mainLoop())
   }
 
   /**
@@ -57,7 +62,7 @@ export default class Game {
   public async loadScene(newScene: Scene): Promise<void> {
     const startNewScene = (): void => {
       this.currentScene = newScene
-      this.app.stage.addChild(newScene.container)
+      Game.app.stage.addChild(newScene.container)
     }
     if (this.currentScene) {
       this.currentScene.startOut(() => {

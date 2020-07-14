@@ -1,5 +1,5 @@
 import Transition from './base/Transition'
-import Scene from '../core/Scene'
+import Game from '../Game'
 
 type Alpha = {
   from: number
@@ -19,11 +19,11 @@ export default class Fade extends Transition {
   /**
    * コンストラクタ
    */
-  constructor(scene: Scene, view: HTMLCanvasElement, alpha: Alpha) {
-    super(scene)
+  constructor(alpha: Alpha) {
+    super()
     this.alpha = alpha
 
-    const { width, height } = view
+    const { width, height } = Game.app.view
     this.overlay.beginFill(0x000000)
     this.overlay.moveTo(0, 0)
     this.overlay.lineTo(width, 0)
