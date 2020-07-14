@@ -3,8 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <title>Pixi-GE Example</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+  body {
+    margin: 0;
+    background-color: black;
+  }
+
+  #container {
+    position: relative;
+  }
+
+  #wrapper {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    max-width: 800px;
+    min-width: 600px;
+    width: auto;
+    min-height: 600px;
+    height: 100vh;
+  }
+  </style>
 </head>
 <body>
+  <div id="container">
+    <div id="wrapper"></div>
+  </div>
   <script src="game.ts"></script>
 </body>
 </html>
