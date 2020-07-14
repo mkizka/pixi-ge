@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { Actor } from 'pixi-ge'
 
-export default class Card extends Actor {
+export default class Box extends Actor {
   private data: PIXI.InteractionData | null = null
   private dragging = false
 
@@ -9,6 +9,8 @@ export default class Card extends Actor {
     super()
     const url = 'https://pixijs.io/examples/examples/assets/bunny.png'
     this.sprite.texture = PIXI.Sprite.from(url).texture
+    this.sprite.width = 50
+    this.sprite.height = 50
     this.sprite.x = x
     this.sprite.y = y
     this.sprite.anchor.set(0.5)

@@ -1,9 +1,11 @@
 import {Scene}from'pixi-ge'
-import Card from '../actors/Card'
+import Box from '../actors/Box'
 
 export default class MainScene extends Scene {
   constructor() {
     super()
-    this.addObject(new Card(200, 200))
+    for (let i = 0; i < 10; i++) {
+      this.addObject(new Box(20*i, 20*i))
+    }
   }
 }
