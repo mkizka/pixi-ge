@@ -1,11 +1,9 @@
-import {Scene}from'pixi-ge'
-import Box from '../actors/Box'
+import { Scene } from 'pixi-ge'
+import Input from '../system/Input'
 
 export default class MainScene extends Scene {
   constructor() {
     super()
-    for (let i = 0; i < 10; i++) {
-      this.addObject(new Box(20*i, 20*i))
-    }
+    this.addObject(new Input())
   }
 }
