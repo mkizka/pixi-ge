@@ -22,8 +22,8 @@ export default class Input extends Updatable {
       this.nextCode = this.getNextCode(e)
     })
     canvas?.addEventListener('pointerup', (e: PointerEvent) => {
-      this.nextCode = null
       this.isDragging = false
+      this.nextCode = null
     })
   }
 
@@ -49,7 +49,7 @@ export default class Input extends Updatable {
     const codeSet: Code[][] = [['up', 'left'], ['right', 'down']]
     const codeX = +(relY > lb2rt(relX))
     const codeY = +(relY > lt2rb(relX))
-    // 直後に呼ばれるUpdateで使用するcodeを登録
+
     return codeSet[codeX][codeY]
   }
 }
