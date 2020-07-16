@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import { Actor } from 'pixi-ge'
+import Input from '../system/Input'
 
 export default class Box extends Actor {
   private data: PIXI.InteractionData | null = null
@@ -24,7 +25,21 @@ export default class Box extends Actor {
   }
 
   public update() {
-    this.sprite.rotation -= 0.1
+    const speed = 2
+    switch (Input.code) {
+      case 'up':
+        this.sprite.y -= speed
+        break
+      case 'left':
+        this.sprite.x -= speed
+        break
+      case 'right':
+        this.sprite.x += speed
+        break
+      case 'down':
+        this.sprite.y += speed
+        break
+    }
   }
 
   private onDragStart(event: PIXI.InteractionEvent) {
