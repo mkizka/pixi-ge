@@ -1,15 +1,11 @@
 import * as PIXI from 'pixi.js'
-import { Game, Scene, Actor } from '../src'
+import { Game, Actor, Scene } from '../src'
 
-PIXI.utils.skipHello()
-
-let scene: Scene
 let app: PIXI.Application
-class TestScene extends Scene {}
 
 beforeEach(() => {
+  PIXI.utils.skipHello()
   app = new PIXI.Application()
-  scene = new TestScene()
 })
 
 afterEach(() => {
@@ -29,35 +25,6 @@ describe('core', () => {
       game.start(el)
       expect(el.children).toContain(app.view)
     })
-
-    it('シーン読み込み', () => {
-      game.start()
-      game.loadScene(scene)
-      app.ticker.update()
-      expect(app.stage.children.length).toBe(1)
-      expect(game.getCurrentScene()).not.toBe(undefined)
-      expect(game.getCurrentScene()).toBe(scene)
-    })
-
-    it('シーン遷移', () => {
-      game.start()
-      const scene2 = new TestScene()
-      game.loadScene(scene)
-      app.ticker.update()
-      game.loadScene(scene2)
-      app.ticker.update()
-      expect(app.stage.children.length).toBe(1)
-      expect(game.getCurrentScene()).not.toBe(undefined)
-      expect(game.getCurrentScene()).toBe(scene2)
-    })
-
-    it('登録シーンがメインループで動作', () => {
-      game.start()
-      game.loadScene(scene)
-      app.ticker.update()
-      expect(game.getCurrentScene()).not.toBe(undefined)
-      expect(game.getCurrentScene()?.isStarted).toBe(true)
-    })
   })
 
   describe('Actor', () => {
@@ -66,6 +33,17 @@ describe('core', () => {
       const child = new Actor()
       parent.addObject(child)
       expect(parent.sprite.children).toContain(child.sprite)
+    })
+  })
+
+  describe('Scene', () => {
+    it('トランジション管理', () => {
+      const scene = new Scene()
+      scene.behave()
+      expect(scene.transitionIn.isStarted).toBe(true)
+      scene.startOut()
+      scene.behave()
+      expect(scene.transitionOut.isStarted).toBe(true)
     })
   })
 })
