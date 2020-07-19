@@ -46,4 +46,9 @@ export default class Scene extends Updatable {
       this.container.addChild(updatable.overlay)
     }
   }
+
+  public destroy(): void {
+    super.destroy()
+    this.container.destroy()
+  }
 }

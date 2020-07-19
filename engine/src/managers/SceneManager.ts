@@ -15,20 +15,14 @@ export default class SceneManager {
 
   /**
    * シーンをロードする
-   * 新しいシーンのリソース読み込みと古いシーンのトランジションを同時に開始する
-   * いずれも完了したら、新しいシーンのトランジションを開始する
    */
   public static loadScene(newScene: Scene): void {
-    const startNewScene = (): void => {
-      SceneManager._scene = newScene
-    }
     if (SceneManager.scene) {
       SceneManager.scene.startOut(() => {
-        SceneManager.scene?.container.destroy()
-        startNewScene()
+        SceneManager._scene = newScene
       })
     } else {
-      startNewScene()
+      SceneManager._scene = newScene
     }
   }
 }

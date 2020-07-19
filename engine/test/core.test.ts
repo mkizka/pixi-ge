@@ -1,11 +1,11 @@
-import * as PIXI from 'pixi.js'
+import { Application, utils } from 'pixi.js'
 import { Game, Actor, Scene } from '../src'
 
-let app: PIXI.Application
+utils.skipHello()
+let app: Application
 
 beforeEach(() => {
-  PIXI.utils.skipHello()
-  app = new PIXI.Application()
+  app = new Application()
 })
 
 afterEach(() => {
