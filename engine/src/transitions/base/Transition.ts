@@ -25,7 +25,6 @@ abstract class Transition extends Updatable {
    */
   protected finish(): void {
     this.finished = true
-    this.parent?.destroy()
     if (this.onFinished) {
       this.onFinished()
     }

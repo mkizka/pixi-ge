@@ -19,6 +19,7 @@ export default class SceneManager {
   public static loadScene(newScene: Scene): void {
     if (SceneManager.scene) {
       SceneManager.scene.startOut(() => {
+        SceneManager._scene?.container.destroy()
         SceneManager._scene = newScene
       })
     } else {

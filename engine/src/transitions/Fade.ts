@@ -1,5 +1,5 @@
 import Transition from './base/Transition'
-import Game from '../Game'
+import Game from '../core/Game'
 
 type Alpha = {
   from: number

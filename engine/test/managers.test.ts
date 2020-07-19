@@ -1,5 +1,4 @@
-import SceneManager from '../src/managers/SceneManager'
-import { Scene } from '../src'
+import { Scene, SceneManager } from '../src'
 
 describe('managers', () => {
   describe('SceneManager', () => {

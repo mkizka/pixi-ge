@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import SceneManager from './managers/SceneManager'
+import SceneManager from '../managers/SceneManager'
 
 /**
  * ゲーム全体のマネージャ
@@ -29,7 +29,11 @@ export default class Game {
    * this.startで登録されるメインループ
    */
   protected mainLoop(): void {
+    const { stage } = Game.app
     if (SceneManager.scene) {
+      if (!stage.children.includes(SceneManager.scene.container)) {
+        stage.addChild(SceneManager.scene.container)
+      }
       SceneManager.scene.behave()
     }
   }

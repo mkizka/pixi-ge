@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { Game } from 'pixi-ge'
+import { Game, SceneManager } from 'pixi-ge'
 import MainScene from './scenes/MainScene'
 
 const wrapper = document.querySelector<HTMLDivElement>('#wrapper')!
@@ -11,4 +11,4 @@ const app = new PIXI.Application({
 
 const game = new Game(app)
 game.start(wrapper!)
-game.loadScene(new MainScene())
+SceneManager.loadScene(new MainScene())

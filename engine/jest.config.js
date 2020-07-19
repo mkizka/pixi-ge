@@ -1,7 +1,5 @@
 module.exports = {
-  transform: {
-    '^.+\\.ts$': 'ts-jest'
-  },
+  preset: 'ts-jest',
   runner: '@jest-runner/electron',
   testEnvironment: '@jest-runner/electron/environment'
 }
