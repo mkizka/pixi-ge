@@ -1,7 +1,7 @@
-import * as PIXI from 'pixi.js'
+import { utils } from 'pixi.js'
 import { Immediate, Fade } from '../src'
 
-PIXI.utils.skipHello()
+utils.skipHello()
 
 describe('transitions', () => {
   describe('Immediate', () => {

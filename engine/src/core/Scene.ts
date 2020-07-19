@@ -16,24 +16,17 @@ export default class Scene extends Updatable {
   /**
    * シーン開始用のトランジションオブジェクト
    */
-  protected transitionIn: Transition = new Immediate()
+  public readonly transitionIn: Transition = new Immediate()
 
   /**
    * シーン終了用のトランジションオブジェクト
    */
-  protected transitionOut: Transition = new Immediate()
-
-  /**
-   * シーン開始時に1度だけ呼び出されるメソッド
-   */
-  public startIn(): void {
-    this.addObject(this.transitionIn)
-  }
+  public readonly transitionOut: Transition = new Immediate()
 
   /**
    * シーン終了時に1度だけ呼び出されるメソッド
    */
-  public startOut(onTransitionFinished: () => void): void {
+  public startOut(onTransitionFinished?: () => void): void {
     this.addObject(this.transitionOut)
     if (onTransitionFinished) {
       this.transitionOut.onFinished = onTransitionFinished
@@ -41,7 +34,7 @@ export default class Scene extends Updatable {
   }
 
   protected start(): void {
-    this.startIn()
+    this.addObject(this.transitionIn)
   }
 
   public addObject(updatable: Updatable | Actor | Transition): void {
@@ -52,5 +45,10 @@ export default class Scene extends Updatable {
     if (updatable instanceof Transition) {
       this.container.addChild(updatable.overlay)
     }
+  }
+
+  public destroy(): void {
+    super.destroy()
+    this.container.destroy()
   }
 }
