@@ -1,6 +1,6 @@
-import Scene from '../core/Scene'
+import Scene from './Scene'
 
-export default class SceneManager {
+class SceneManager {
   /**
    * 現在のシーンインスタンス
    */
@@ -17,13 +17,8 @@ export default class SceneManager {
    * シーンをロードする
    */
   public static loadScene(newScene: Scene): void {
-    if (SceneManager.scene) {
-      SceneManager.scene.startOut(() => {
-        SceneManager._scene?.container.destroy()
-        SceneManager._scene = newScene
-      })
-    } else {
-      SceneManager._scene = newScene
-    }
+    SceneManager._scene = newScene
   }
 }
+
+export default SceneManager

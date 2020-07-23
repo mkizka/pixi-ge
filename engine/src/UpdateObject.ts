@@ -1,6 +1,7 @@
-abstract class Updatable {
-  protected parent: Updatable | null = null
-  protected objects: Updatable[] = []
+import * as PIXI from 'pixi.js'
+
+class UpdateObject extends PIXI.Container {
+  protected objects: UpdateObject[] = []
   protected started = false
   protected destroyed = false
 
@@ -18,7 +19,7 @@ abstract class Updatable {
       this.started = true
     }
     this.update()
-    const next: Updatable[] = []
+    const next: UpdateObject[] = []
     for (const gameObject of this.objects) {
       if (gameObject.destroyed) continue
       gameObject.behave()
@@ -33,22 +34,22 @@ abstract class Updatable {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected update(): void {}
 
-  /**
-   * behaveで同時に呼び出される子要素を登録する
-   * @param updatable
-   */
-  public addObject(updatable: Updatable): void {
-    updatable.parent = this
-    this.objects.push(updatable)
+  public addChild(child: UpdateObject): UpdateObject {
+    super.addChild(child)
+    if (!this.objects.includes(child)) {
+      this.objects.push(child)
+    }
+    return child
   }
 
   /**
-   * behaveで呼び出されなくする
-   * 継承クラスで同時に停止したい要素があれば上書きす
+   * 子要素と合わせてbehaveで呼び出されなくする
    */
   public destroy(): void {
+    super.destroy()
     this.destroyed = true
+    this.objects.forEach(obj => obj.destroy())
   }
 }
 
-export default Updatable
+export default UpdateObject
