@@ -1,8 +1,8 @@
-import { Updatable } from 'pixi-ge'
+import { UpdateObject } from 'pixi-ge'
 
 type Code = 'up' | 'right' | 'left' | 'down'
 
-export default class Input extends Updatable {
+export default class Input extends UpdateObject {
   private isDragging = false
   private nextCode: Code | null = null
   private static _code: Code | null = null

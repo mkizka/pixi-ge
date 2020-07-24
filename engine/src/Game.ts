@@ -1,47 +1,35 @@
 import * as PIXI from 'pixi.js'
-import SceneManager from './SceneManager'
+import Scene from './Scene'
+
 /**
  * ゲーム全体のマネージャ
  */
-class Game {
-  private static _app: PIXI.Application | null
-
+class Game extends PIXI.Application {
   /**
-   * this._appのgetter
+   * 最初に開始されるシーンを設定しておく
    */
-  public static get app(): PIXI.Application {
-    if (Game._app) {
-      return Game._app
-    }
-    throw Error('startが呼ばれていません')
-  }
+  private _scene: Scene = new Scene()
 
-  /**
-   * コンストラクタ
-   */
-  constructor(app: PIXI.Application) {
-    Game._app = app
+  public get scene(): Scene {
+    return this._scene
   }
 
   /**
    * this.startで登録されるメインループ
    */
-  protected static mainLoop(): void {
-    const { stage } = Game.app
-    if (SceneManager.scene) {
-      if (!stage.children.includes(SceneManager.scene)) {
-        stage.addChild(SceneManager.scene)
-      }
-      SceneManager.scene.behave()
+  protected mainLoop(): void {
+    if (!this.stage.children.includes(this.scene)) {
+      this.stage.addChild(this.scene)
     }
+    this.scene.behave()
   }
 
   /**
    * ゲームの描画を開始する
    */
-  public static start(element: Element = document.body): void {
-    element.appendChild(Game.app.view)
-    Game.app.ticker.add(_ => Game.mainLoop())
+  public run(element: Element = document.body): void {
+    element.appendChild(this.view)
+    this.ticker.add(_ => this.mainLoop())
   }
 }
 

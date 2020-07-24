@@ -1,6 +1,6 @@
-import { Actor } from 'pixi-ge'
+import { UpdateObject } from 'pixi-ge'
 
-export default class FieldActor extends Actor {
+export default class FieldActor extends UpdateObject {
   protected x = 0
   protected y = 0
   private isMoving = false
