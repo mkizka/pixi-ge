@@ -1,3 +1,4 @@
+import * as PIXI from 'pixi.js'
 import { UpdateObject } from '../src'
 
 describe('UpdateObject', () => {
@@ -14,7 +15,7 @@ describe('UpdateObject', () => {
         this.updateCount++
       }
     }
-    const counter = new Counter()
+    const counter = new Counter(new PIXI.Container())
     const behaveCount = 3
     for (let i = 0; i < behaveCount; i++) {
       counter.behave()
@@ -23,16 +24,16 @@ describe('UpdateObject', () => {
     expect(counter.updateCount).toBe(behaveCount)
   })
   it('子要素の登録時にメインループに登録される', () => {
-    const parent = new UpdateObject()
-    const child = new UpdateObject()
+    const parent = new UpdateObject(new PIXI.Container())
+    const child = new UpdateObject(new PIXI.Container())
     parent.addChild(child)
     parent.behave()
     expect(parent.isStarted).toBe(true)
     expect(child.isStarted).toBe(true)
   })
   it('親要素の削除時に子要素も削除される', () => {
-    const parent = new UpdateObject()
-    const child = new UpdateObject()
+    const parent = new UpdateObject(new PIXI.Container())
+    const child = new UpdateObject(new PIXI.Container())
     parent.addChild(child)
     parent.destroy()
     expect(parent.isDestroyed).toBe(true)

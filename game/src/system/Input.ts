@@ -28,7 +28,7 @@ export default class Input extends UpdateObject {
   }
 
   update(): void {
-    if (Input._code != this.nextCode) {
+    if (Input._code !== this.nextCode) {
       Input._code = this.nextCode
     }
   }
@@ -39,14 +39,17 @@ export default class Input extends UpdateObject {
     const relY = e.clientY - rect.top
     // 左下(x=0,y=縦最大)から右上(x=横最大,y=0)までを結んだ関数
     const lb2rt = (x: number) => {
-      return -x * rect.height / rect.width + rect.height
+      return (-x * rect.height) / rect.width + rect.height
     }
     // 左上(x=0,y=0)から右上(x=横最大,y=縦最大)までを結んだ関数
     const lt2rb = (x: number) => {
-      return x * rect.height / rect.width
+      return (x * rect.height) / rect.width
     }
     // 端点同士を結んだ関数2つとy座標を比較して上下左右を取る
-    const codeSet: Code[][] = [['up', 'left'], ['right', 'down']]
+    const codeSet: Code[][] = [
+      ['up', 'left'],
+      ['right', 'down']
+    ]
     const codeX = +(relY > lb2rt(relX))
     const codeY = +(relY > lt2rb(relX))
 

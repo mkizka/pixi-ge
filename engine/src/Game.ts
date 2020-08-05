@@ -18,8 +18,8 @@ class Game extends PIXI.Application {
    * this.startで登録されるメインループ
    */
   protected mainLoop(): void {
-    if (!this.stage.children.includes(this.scene)) {
-      this.stage.addChild(this.scene)
+    if (!this.stage.children.includes(this.scene.container)) {
+      this.stage.addChild(this.scene.container)
     }
     this.scene.behave()
   }
