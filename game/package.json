@@ -1,4 +1,7 @@
 {
+  "name": "pixi-ge-game",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "game": "parcel serve ./src/index.html"
   },
