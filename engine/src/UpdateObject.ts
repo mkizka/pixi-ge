@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 
 class UpdateObject<T extends PIXI.Container = PIXI.Container> {
-  public container: T
+  public container: T | null = null
   protected objects: UpdateObject<T>[] = []
   protected started = false
   protected destroyed = false
@@ -12,10 +12,6 @@ class UpdateObject<T extends PIXI.Container = PIXI.Container> {
 
   public get isDestroyed(): boolean {
     return this.destroyed
-  }
-
-  constructor(container: T) {
-    this.container = container
   }
 
   public behave(): void {
@@ -40,7 +36,9 @@ class UpdateObject<T extends PIXI.Container = PIXI.Container> {
   protected update(): void {}
 
   public addChild(child: UpdateObject<T>): typeof child {
-    this.container.addChild(child.container)
+    if (this.container && child.container) {
+      this.container.addChild(child.container)
+    }
     if (!this.objects.includes(child)) {
       this.objects.push(child)
     }
@@ -51,7 +49,7 @@ class UpdateObject<T extends PIXI.Container = PIXI.Container> {
    * 子要素と合わせてbehaveで呼び出されなくする
    */
   public destroy(): void {
-    this.container.destroy()
+    this.container?.destroy()
     this.destroyed = true
     this.objects.forEach(obj => obj.destroy())
   }
