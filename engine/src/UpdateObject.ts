@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js'
 
-class UpdateObject<T extends PIXI.Container = PIXI.Container> {
-  public container: T | null = null
-  protected objects: UpdateObject<T>[] = []
-  protected started = false
+class UpdateObject {
+  public container = new PIXI.Container()
+  protected objects: UpdateObject[] = []
+  private started = false
   protected destroyed = false
 
   public get isStarted(): boolean {
@@ -20,7 +20,7 @@ class UpdateObject<T extends PIXI.Container = PIXI.Container> {
       this.started = true
     }
     this.update()
-    const next: UpdateObject<T>[] = []
+    const next: UpdateObject[] = []
     for (const gameObject of this.objects) {
       if (gameObject.destroyed) continue
       gameObject.behave()
@@ -35,14 +35,13 @@ class UpdateObject<T extends PIXI.Container = PIXI.Container> {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected update(): void {}
 
-  public addChild(child: UpdateObject<T>): typeof child {
+  public addChild(child: UpdateObject): void {
     if (this.container && child.container) {
       this.container.addChild(child.container)
     }
     if (!this.objects.includes(child)) {
       this.objects.push(child)
     }
-    return child
   }
 
   /**

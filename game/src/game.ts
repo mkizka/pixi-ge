@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js'
-import { Game, Scene, UpdateObject } from 'pixi-ge'
+import { Engine, Scene, UpdateObject } from 'pixi-ge'
 
 const wrapper = document.body.querySelector<HTMLDivElement>(
   '#wrapper'
 ) as HTMLDivElement
 
-class MyActor extends UpdateObject<PIXI.Sprite> {
+class MyActor extends UpdateObject {
   constructor() {
     super()
     this.container = PIXI.Sprite.from(
@@ -25,15 +25,16 @@ class MyScene extends Scene {
   }
 }
 
-class MyGame extends Game {
-  public scene = new MyScene()
+class Game extends Engine {
   constructor() {
-    super({
+    super()
+    this.app = new PIXI.Application({
       resizeTo: wrapper,
       backgroundColor: 0x1099bb
     })
+    this.setScene(new MyScene())
   }
 }
 
-const game = new MyGame()
+const game = new Game()
 game.run(wrapper)
