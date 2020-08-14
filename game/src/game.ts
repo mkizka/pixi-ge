@@ -1,27 +1,14 @@
 import * as PIXI from 'pixi.js'
-import { Engine, Scene, UpdateObject } from 'pixi-ge'
+import { Engine, Scene } from 'pixi-ge'
+import Stage from './actors/Stage'
 
 const wrapper = document.body.querySelector<HTMLDivElement>(
   '#wrapper'
 ) as HTMLDivElement
 
-class MyActor extends UpdateObject {
-  constructor() {
-    super()
-    this.container = PIXI.Sprite.from(
-      'https://pixijs.io/examples/examples/assets/bunny.png'
-    )
-  }
-
-  update() {
-    this.container.x += 1
-    this.container.y += 1
-  }
-}
-
 class MyScene extends Scene {
   start() {
-    this.addChild(new MyActor())
+    this.addChild(new Stage())
   }
 }
 
