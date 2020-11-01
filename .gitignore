@@ -1,6 +1,4 @@
 node_modules/
 dist/
-engine/coverage/
-game/.cache/
 .idea/
 *.log

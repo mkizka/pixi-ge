@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { UpdateObject } from 'pixi-ge'
+import { UpdateObject } from '@mkizka/pixi-ge'
 
 class Stage extends UpdateObject<PIXI.Sprite> {
   constructor() {

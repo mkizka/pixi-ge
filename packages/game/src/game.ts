@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { Engine, Scene } from 'pixi-ge'
+import { Engine, Scene } from '@mkizka/pixi-ge'
 import Stage from './actors/Stage'
 
 const wrapper = document.body.querySelector<HTMLDivElement>(

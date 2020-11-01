@@ -1,10 +1,12 @@
 {
-  "name": "pixi-ge",
-  "version": "0.0.1",
+  "name": "pixi-ge-monorepo",
   "private": true,
   "scripts": {
     "lint": "eslint */src/**.ts --fix"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

@@ -1,5 +1,5 @@
 {
-  "name": "pixi-ge-engine",
+  "name": "@mkizka/pixi-ge",
   "version": "0.0.1",
   "private": true,
   "main": "dist/index.js",

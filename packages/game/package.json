@@ -1,9 +1,9 @@
 {
-  "name": "pixi-ge-game",
+  "name": "@mkizka/game",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "game": "parcel serve ./src/index.html"
+    "dev": "parcel src/index.html --open"
   },
   "devDependencies": {
     "parcel": "^1.12.4",
