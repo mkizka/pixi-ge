@@ -14,7 +14,7 @@
     "@jest-runner/electron": "^3.0.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@types/jest": "^26.0.9",
-    "electron": "^9.2.0",
+    "electron": "^9.3.1",
     "jest": "^26.4.0",
     "rollup": "^2.25.0",
     "ts-jest": "^26.2.0",
